@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity {
                 String path=location;
                 Log.d("updateCard", location);
                 Bitmap album_image=getDiskBitmap(path);
-                albums.add(new album(name,String.valueOf(sound_num)+"场表演",album_image));
+                albums.add(new album(name,String.valueOf(sound_num)+"场表演",location));
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -317,7 +317,7 @@ public class MainActivity extends BaseActivity {
     }
     private void makeDir(String path){
         String path1=getDiskCacheDir(MyApplication.getContext())+"/"+path;
-        Log.d("ma", path1);
+        Log.d("makedir", path1);
         File dir = new File(path1);
         dir.mkdirs();
     }

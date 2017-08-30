@@ -9,13 +9,13 @@ import android.graphics.Bitmap;
 public class album {
     private String name;
     private String num;
-    private Bitmap imageID;
-    public album(String name,String num,Bitmap imageID){
+    private String imagePath;
+    public album(String name,String num,String imagePath){
         this.name=name;
         this.num=num;
-        this.imageID=imageID;
+        this.imagePath=imagePath;
     }
     public String getName(){return name;}
     public String getNum(){return num;}
-    public Bitmap getImageID(){return imageID;}
+    public String getImagePath(){return imagePath;}
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.doublefengshan.happylisten.R;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public class albumAdapter extends RecyclerView.Adapter<albumAdapter.ViewHolder> 
         album malbum=malbumList.get(position);
         holder.albumName.setText(malbum.getName());
         holder.albumNum.setText(malbum.getNum());
-        Glide.with(mContext).load(malbum.getImageID()).into(holder.albumImage);
+        Glide.with(mContext).load(new File(malbum.getImagePath())).into(holder.albumImage);
     }
     @Override
     public int getItemCount(){
