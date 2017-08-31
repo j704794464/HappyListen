@@ -1,6 +1,7 @@
 package com.example.doublefengshan.happylisten.self_class;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.doublefengshan.happylisten.MainActivity;
 import com.example.doublefengshan.happylisten.R;
+import com.example.doublefengshan.happylisten.Sounds;
 
 import java.io.File;
 import java.util.List;
@@ -46,6 +49,19 @@ public class albumAdapter extends RecyclerView.Adapter<albumAdapter.ViewHolder> 
             mContext=parent.getContext();
         }
         View view= LayoutInflater.from(mContext).inflate(R.layout.album,parent,false);
+        final ViewHolder holder=new ViewHolder(view);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position=holder.getAdapterPosition();
+                album album_enity=malbumList.get(position);
+                Intent intent=new Intent(mContext, Sounds.class);
+                intent.putExtra("AlbumName",album_enity.getName());
+                intent.putExtra("SoundNum",album_enity.getNum());
+                intent.putExtra("ImagePath",album_enity.getImagePath());
+                mContext.startActivity(intent);
+            }
+        });
         return new ViewHolder(view);
     }
     @Override

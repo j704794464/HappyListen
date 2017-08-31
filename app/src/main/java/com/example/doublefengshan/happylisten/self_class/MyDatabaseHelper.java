@@ -16,7 +16,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             +"location text,"
             +"time integer)";
     public static final String CREATE_SOUNDS="create table sounds("
-            +"album_id integer primary key,"
+            +"album_id integer,"
             +"name text,"
             +"length text,"
             +"location text,"

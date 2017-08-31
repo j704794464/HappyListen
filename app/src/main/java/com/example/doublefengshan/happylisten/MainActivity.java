@@ -114,7 +114,6 @@ public class MainActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("MainActivity", "fudong");//添加浮动按钮点击事件
             }
         });
         ///////////////////////////////
@@ -139,6 +138,7 @@ public class MainActivity extends BaseActivity {
                     do {
                         sound_num++;
                     }while(cusor_sound.moveToNext());
+                    Log.d("updateCardview", String.valueOf(sound_num));
                 }
                 //从本地读取图片
                 String path=location;
@@ -247,18 +247,24 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseData=response.body().string();
+                Log.d("updateSounds",responseData);
                 MyDatabaseHelper dbHelper=new MyDatabaseHelper(MyApplication.getContext(),"Album.db",null,1);
                 SQLiteDatabase db=dbHelper.getWritableDatabase();
                 ContentValues values=new ContentValues();
                 try{
                     JSONArray jsonArray=new JSONArray(responseData);
+                    Log.d("updateSounds",String.valueOf(jsonArray.length()));
                     for(int i=0;i<jsonArray.length();i++){
+                        Log.d("updateSounds", String.valueOf(i));
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        int id=jsonObject.getInt("id");
+                        int album_id=jsonObject.getInt("album_num");
                         String name=jsonObject.getString("name");
                         String length=jsonObject.getString("length");
+                        String location=jsonObject.getString("location");
                         int time=jsonObject.getInt("time");
-                        values.put("id",id);
+                        Log.d("updateSounds", String.valueOf(album_id));
+                        values.put("album_id",album_id);
+                        values.put("location",location);
                         values.put("name",name);
                         values.put("length",length);
                         values.put("time",time);
