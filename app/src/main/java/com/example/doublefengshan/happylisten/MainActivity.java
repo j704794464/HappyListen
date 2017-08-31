@@ -273,10 +273,12 @@ public class MainActivity extends BaseActivity {
     }
     private String saveImage(Bitmap bitmap,String Filename){
         String path=getDiskCacheDir(MyApplication.getContext())+"/";
+        Log.d("saveImage",path);
         File album_image = new File(path);
         if (!album_image.exists()) {
             album_image.mkdirs();
         }
+        Log.d("saveImage", String.valueOf(album_image.exists()));
         String image_path=path + Filename;
         File myCaptureFile = new File(image_path);
         try{
@@ -309,7 +311,7 @@ public class MainActivity extends BaseActivity {
         int isFirstOpen=pref.getInt("isFirstOpen",1);
         Log.d("data", String.valueOf(isFirstOpen));
         if(isFirstOpen==1){
-            makeDir("album_image");
+            makeDir("albumImage");
             setDatabase();
             updateAlbums("getAlbum.php","getAlbum");
             updateSounds("getSound.php","getSound");
