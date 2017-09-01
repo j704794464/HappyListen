@@ -62,7 +62,7 @@ public class albumAdapter extends RecyclerView.Adapter<albumAdapter.ViewHolder> 
                 mContext.startActivity(intent);
             }
         });
-        return new ViewHolder(view);
+        return holder;
     }
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
