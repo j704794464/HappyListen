@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity {
                 String path=location;
                 Log.d("updateCard", location);
                 Bitmap album_image=getDiskBitmap(path);
-                albums.add(new album(name,String.valueOf(sound_num)+"场表演",location));
+                albums.add(new album(name,String.valueOf(sound_num)+"场表演",location,id));
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

@@ -59,6 +59,7 @@ public class albumAdapter extends RecyclerView.Adapter<albumAdapter.ViewHolder> 
                 intent.putExtra("AlbumName",album_enity.getName());
                 intent.putExtra("SoundNum",album_enity.getNum());
                 intent.putExtra("ImagePath",album_enity.getImagePath());
+                intent.putExtra("AlbumId",album_enity.getAlbum_id());
                 mContext.startActivity(intent);
             }
         });
