@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Sounds" />
-        <activity android:name=".self_class.Player"></activity>
+        <activity android:name=".Player"></activity>
     </application>
 
 </manifest>
