@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,8 +30,6 @@ import java.util.List;
 public class Sounds extends BaseActivity {
 
     Intent intent_start;//用来获取上个活动信息
-    ///////////////////////////////////////
-    private MyDatabaseHelper dbHelper;//加载数据库
     ////////////////////////////////////////
     private RecyclerView recyclerView;//定义recycleview
     private List<Sound> SoundList;
@@ -51,6 +50,9 @@ public class Sounds extends BaseActivity {
         setContentView(R.layout.activity_sounds);
         intent_start=getIntent();//获取上个活动信息的intent
         SoundList=new ArrayList<>();//这是recycleview用到的list
+        ///////////////////////////
+
+        ///////////////////////////
         initBar();
         initRecycleView();
     }
