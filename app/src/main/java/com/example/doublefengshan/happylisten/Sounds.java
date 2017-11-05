@@ -66,9 +66,7 @@ public class Sounds extends BaseActivity {
         Glide.with(MyApplication.getContext()).load(new File(ImagePath)).into(album_image);
     }
     private void initRecycleView(){
-        for (int i=0;i<=10;i++){
             initSounds();
-        }
 
         recyclerView=(RecyclerView)findViewById(R.id.sound_item_recycle);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);

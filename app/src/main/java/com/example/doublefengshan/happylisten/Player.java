@@ -78,7 +78,6 @@ public class Player extends BaseActivity implements View.OnClickListener{
     }
     public void initMediaPlayer(){
         try{
-            Log.d("initMediaPlayer", "1 ");
             dbhelper=new MyDatabaseHelper(this,"Album.db",null,1);
             SQLiteDatabase db=dbhelper.getWritableDatabase();
             String soundName=intent_start.getStringExtra("SoundName");
@@ -87,14 +86,13 @@ public class Player extends BaseActivity implements View.OnClickListener{
             String loc ;
             cursor.moveToFirst();
             loc=cursor.getString(cursor.getColumnIndex("location"));
-            Log.d("initMediaPlayer", "2 ");
             String sound_url="http://fm.zhangyuzhuhai.com:8080/"+loc;
             Log.d("initMediaPlayer", sound_url);
             mediaPlayer.setDataSource(sound_url);
             mediaPlayer.prepare();
             }catch (Exception e){
             e.printStackTrace();
-            Log.d("initMediaPlayer", "error ");
+            Log.d("initMediaPlayer", "error");
         }
     }
 }

@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
         switch (item.getItemId()){
             case R.id.back:
                 break;
-            case R.id.delete:
+            case R.id.refresh:
                 updateCardview();
                 break;
             case R.id.settings:
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
                 int id=cursor.getInt(cursor.getColumnIndex("id"));
                 String name=cursor.getString(cursor.getColumnIndex("name"));
                 String uper=cursor.getString(cursor.getColumnIndex("uper"));
-                String location=cursor.getString(cursor.getColumnIndex("location"));
+                final String location=cursor.getString(cursor.getColumnIndex("location"));
                 int time=cursor.getInt(cursor.getColumnIndex("time"));
                 String s_id=String.valueOf(id);
                 Log.d("initCard", location);
@@ -143,16 +143,36 @@ public class MainActivity extends BaseActivity {
                 //从本地读取图片
                 String path=location;
                 Log.d("updateCard", location);
+                File album_image_file=new File(location);
+                if(!album_image_file.exists()){
+                    final String name_miss=name;
+                    final int sound_num_miss=sound_num;
+                    final int id_miss=id;
+                    HttpMethods.downloadImage(location, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e){
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            byte[] album_image=response.body().bytes();
+                            Bitmap bitmap= BitmapFactory.decodeByteArray(album_image,0,album_image.length);
+                            String local_location=saveImage(bitmap,location);
+                            Log.d("updateAlbum", local_location);
+                            Bitmap album_image_miss=getDiskBitmap(local_location);
+                            albums.add(new album(name_miss,String.valueOf(sound_num_miss)+"场表演",location,id_miss));
+                            Message message=new Message();
+                            message.what=UPDATE_CARDVIEW;
+                            handler.sendMessage(message);
+                        }
+                    });
+                }else{
                 Bitmap album_image=getDiskBitmap(path);
                 albums.add(new album(name,String.valueOf(sound_num)+"场表演",location,id));
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
                         Message message=new Message();
                         message.what=UPDATE_CARDVIEW;
                         handler.sendMessage(message);
-                    }
-                }).start();
+                }
             }while(cursor.moveToNext());
         }
         /*for(int i=1;i<=10;i++) {
@@ -231,6 +251,7 @@ public class MainActivity extends BaseActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                updateCardview();
             }
             @Override
             public void onFailure(Call call, IOException e){
@@ -274,6 +295,7 @@ public class MainActivity extends BaseActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                updateAlbums("getAlbum.php","getAlbum");
             }
         });
     }
@@ -319,8 +341,7 @@ public class MainActivity extends BaseActivity {
         if(isFirstOpen==1){
             makeDir("albumImage");
             setDatabase();
-            updateAlbums("getAlbum.php","getAlbum");
-            updateSounds("getSound.php","getSound");
+            updateSounds("getSound.php","getSound");//更新声音数据库，专辑数据库，加载cardview形成一条链，后两个在里面嵌套着
         }
     }
     private void makeDir(String path){
